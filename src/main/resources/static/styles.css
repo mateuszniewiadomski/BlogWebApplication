@@ -1,0 +1,31 @@
+body {
+	background-color: #ffffff;
+    background-color: #d9bcff;
+	/*background-image: url("https://www.transparenttextures.com/patterns/diagmonds-light.png");*/
+	background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+	background-blend-mode: screen;/*
+	background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");*/
+}
+
+.form {
+	height: 50%;
+	width: 50%;
+	min-height: 300px;
+	min-width: 500px;
+	padding: 50px;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+}
+
+.validationError {
+	color: #dc3545;
+}
+
+.bg-light {
+	background-image: url("https://www.transparenttextures.com/patterns/blizzard.png");
+}

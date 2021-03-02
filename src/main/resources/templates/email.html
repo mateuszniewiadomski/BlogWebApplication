@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div {
+        	background-color: #ffffff;
+            background-color: #d9bcff;
+        	background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+        	background-blend-mode: screen;
+        	color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div style="font-family: Arial, sans-serif; text-align: center;">
+    <div style="background-color: #499afc">
+        <p style="color: white; padding: 20px;">Congratulations!</p>
+    </div>
+    <div>
+        <div style="padding: 20px; font-size: 30px" th:text="${'You have been succesfully registered!'}"></div>
+        <div style="padding: 20px; font-size: 20px" th:text="${'First name: ' + user.first_name}"></div>
+        <div style="padding: 20px; font-size: 20px" th:text="${'Last name: ' + user.last_name}"></div>
+        <div style="padding: 20px; font-size: 20px" th:text="${'Username: ' + user.username}"></div>
+    </div>
+    <div style="background-color: #499afc">
+        <p style="color: white; padding: 20px;">Thank you!</p>
+    </div>
+</div>
+</body>
+</html>

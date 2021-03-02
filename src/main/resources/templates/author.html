@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Stats</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+
+<!--NAVBAR-->
+<nav class="navbar navbar-light bg-light">
+
+    <a th:href="@{/}" class="navbar-brand mb-0 h1">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book" fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+        </svg>
+        Blog
+    </a>
+
+    <span class="navbar-brand mb-0 h1" sec:authorize="isAuthenticated()">Logged as:
+        <span sec:authentication="principal.username"> User</span>
+    </span>
+
+    <div class="d-flex justify-content">
+        <a th:href="@{/register}" sec:authorize="isAnonymous()" class="nav-item nav-link active">Sign up</a>
+        <a th:href="@{/login}" sec:authorize="isAnonymous()" class="nav-item nav-link active">Sign in</a>
+        <button sec:authorize="isAuthenticated()" class="btn btn-outline-primary" onclick="location.href='/logout';">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-right" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                <path fill-rule="evenodd"
+                      d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+            Logout
+        </button>
+    </div>
+
+</nav>
+<!--NAVBAR-->
+
+
+<br>
+
+<!--AUTHOR INFO-->
+<div class="container bg-light p-3 px-4 rounded" style="margin-top: 10px;">
+    <a class="btn btn-outline-primary mr-sm-2" style="float: right;" th:href="@{/}">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        back
+    </a>
+    <div class="d-flex justify-content">
+        <div class="col-sm-6 ">
+            <h4 th:text="${author.username}"></h4>
+            <div class="m-2 p-2">
+                <div class="d-flex justify-content">
+                    <h5 class="text-right col-sm-6">First name:</h5>
+                    <h5 class="text-left col-sm-6" th:text="${author.first_name}"></h5>
+                </div>
+                <div class="d-flex justify-content">
+                    <h5 class="text-right col-sm-6">Last name:</h5>
+                    <h5 class="col-sm-6" th:text="${author.last_name}"></h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 ">
+            <h4>Overview</h4>
+            <div class="m-2 p-2">
+                <div class="d-flex justify-content">
+                    <h5 class="text-right col-sm-6">Posts:</h5>
+                    <h5 class="col-sm-6" th:text="${#lists.size(posts)}"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--AUTHOR INFO-->
+
+<!--POSTS-->
+<div>
+    <!--USERNAME-->
+    <div th:each="currentPost: ${posts}" class="container bg-light mt-3 p-3 px-4 rounded">
+        <span class="d-flex justify-content">
+            <span th:if="${not #lists.isEmpty(currentPost.postsAuthors)}"
+                  th:each="postAuthor : ${currentPost.postsAuthors}">
+                <a style="color: black;" th:href="@{/author/{authorId}(authorId=${postAuthor.id_author.id})}"><h4
+                        th:text="${postAuthor.id_author.username + '&nbsp;'}"></h4></a>
+            </span>
+            <span th:unless="${not #lists.isEmpty(currentPost.postsAuthors)}">
+                <h4 style="color: black;">Anonymous</h4>
+            </span>
+
+            <!--VIEW BUTTON-->
+            <a class="btn btn-success mr-sm-2" style="margin-left: auto; color: white;"
+               th:href="@{/post/{id}(id=${currentPost.id})}">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                    <path fill-rule="evenodd"
+                          d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                </svg><span class="p-2">view</span>
+            </a>
+
+        </span>
+
+        <!--POST-->
+        <div>
+
+            <!--TAGS-->
+            <p>
+                <span th:each="tag : ${#strings.listSplit(currentPost.tags,' ')} " style="display: inline;">
+                    <a th:href="@{/search/{tag}(tag=${tag})}" th:text="' #' + ${tag}"></a>
+                </span>
+            </p>
+
+            <!--CONTENT-->
+            <p th:utext="${currentPost.post_content}"></p>
+            <hr>
+
+            <!--ATTACHMENTS-->
+            <p th:each="attachment : ${currentPost.attachments}">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-paperclip" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                </svg>
+                <a class="p-3" th:href="@{/files/{file}(file=${attachment.filename})}"
+                   th:text="${attachment.filename}"></a>
+            </p>
+
+            <!--COMMENTS BUTTON-->
+            <p style="text-align: right;">
+                <button class="btn btn-outline-primary" type="button" data-toggle="collapse"
+                        th:data-target="${'#collapse'+currentPost.id}" aria-expanded="false">
+                    <span th:text="${#lists.size(currentPost.comments) + ' '}"></span>comments
+                </button>
+            </p>
+            <hr>
+
+            <!--COMMENTS FORM-->
+            <div class="collapse" th:id="${'collapse'+currentPost.id}">
+
+                <form sec:authorize="isAuthenticated()" class="p-2" method="POST" action="#"
+                      th:action="@{/author/{id}/add_comment(id=${author.id})}" enctype='multipart/form-data'>
+                    <textarea class="form-control " rows="2" placeholder="Write a comment"
+                              th:field="*{comments.comment_content}"></textarea>
+                    <span class="validationError"
+                          th:errors="*{comments.comment_content}" style="width: 300px; height: 500px;">comment_content Error
+                        </span>
+                    <input type="hidden" th:value="${#authentication.getName()}" th:attr="name='username'"/>
+                    <input type="hidden" th:value="${currentPost.id}" th:attr="name='id_post'"/>
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn btn-secondary mt-3" style="right: 0;" type="submit">
+                            Comment
+                        </button>
+                    </div>
+                    <hr>
+                </form>
+
+
+                <!--POST'S COMMENTS-->
+                <div th:each="comment : ${currentPost.comments}">
+                    <div class="card card-body m-2 p-2">
+                        <h4 th:text="${comment.username}"></h4>
+                        <p th:text="${comment.comment_content}"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<!--FOOTER-->
+<footer class="page-footer font-small bg-light fixed-bottom">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href=""> Mateusz Niewiadomski</a>
+    </div>
+</footer>
+<!--FOOTER-->
+
+<!--SHOWS UPLOADED FILES-->
+<script>
+        updateList = function() {
+            var input = document.getElementById('file-upload');
+            var output = document.getElementById('fileList');
+            var children = "";
+            for (var i = 0; i < input.files.length; i++) {
+                children += '<p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-paperclip" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/></svg> <a class="p-3" href="">' + input.files.item(i).name + '</a></p>';
+            }
+            output.innerHTML =  children;
+        }
+
+        $('#content').summernote({
+            placeholder: 'Enter post',
+            tabsize: 10,
+            height: 100
+          });
+
+</script>
+</body>

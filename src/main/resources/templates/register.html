@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+
+<!--NAVBAR-->
+<nav class="navbar navbar-light bg-light">
+    <a th:href="@{/}" class="navbar-brand mb-0 h1">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-book" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+        </svg>
+        Blog
+    </a>
+</nav>
+<!--NAVBAR-->
+
+<div class="mt-5 py-4 d-flex justify-content-center container bg-light rounded">
+    <div>
+
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered!!!</div>
+        </div>
+
+        <h1 class="d-flex justify-content-center" style="padding-bottom: 40px;">Register</h1>
+
+        <form method="POST" th:action="@{/register}" th:object="${user}">
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" th:for="first_name">Firstname</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" th:field="*{first_name}"/>
+                    <span class="validationError text-danger"
+                          th:errors="*{first_name}">firstName Error
+                            </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" th:for="last_name">Lastname</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" th:field="*{last_name}"/>
+                    <span class="validationError text-danger"
+                          th:errors="*{last_name}">lastName Error
+                            </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" th:for="username">Username</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" th:field="*{username}"/>
+                    <span class="validationError text-danger"
+                          th:errors="*{username}">username Error
+                            </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" th:for="email">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" th:field="*{email}"/>
+                    <span class="validationError text-danger"
+                          th:errors="*{email}">email Error
+                            </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" th:for="password">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" th:field="*{password}"/>
+                    <span class="validationError text-danger"
+                          th:each="error: ${#fields.errors('password')}">
+                            <div th:each="message : ${error.split(',')}">
+                                <p class="error-message" th:text="${message}"></p>
+                            </div>
+                        </span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Submit"/>
+            </div>
+        </form>
+
+        <button class="btn btn-outline-primary mt-5" onclick="location.href='/login';">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>back
+        </button>
+
+    </div>
+</div>
+
+<!--FOOTER-->
+<footer class="page-footer font-small bg-light fixed-bottom">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href=""> Mateusz Niewiadomski</a>
+    </div>
+</footer>
+<!--FOOTER-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
